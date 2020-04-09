@@ -1,0 +1,19 @@
+GOTIFY_BASEURL='https://gotify.server.me'
+GOTIFY_APPTOKEN='XXXXXXXXXXXXXXX'
+
+BACKUP_DIRECTORIES='
+	/etc
+'
+
+BORG_HOST='borgbackup.server.me'
+BORG_PORT='22'
+BORG_USER='borgbackup'
+BORG_PATH="/var/borgbackup/$HOSTNAME/"
+
+function pre_unlock() {
+	printf "%s\n" "I'll run before unlocking!"
+}
+
+function pre_backup() {
+	printf "%s\n" "I'll run before backing up!"
+}
