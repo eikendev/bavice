@@ -17,7 +17,7 @@ FILE_PHRASE="$SCRIPT_PATH/borg.phrase"
 function pre_unlock() { :; }
 function pre_backup() { :; }
 
-source "$SCRIPT_PATH/local.sh"
+source "$SCRIPT_PATH/config.sh"
 
 export BORG_REPO="ssh://$BORG_USER@$BORG_HOST:$BORG_PORT/$BORG_PATH"
 export BORG_PASSPHRASE="$(head -n 1 $FILE_PHRASE)"
