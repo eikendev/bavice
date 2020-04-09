@@ -103,6 +103,6 @@ prune_repository
 printf "%s\n" 'Cleaning up.'
 cleanup
 
-"$SCRIPT_PATH/timestamp.sh"
+"$SCRIPT_PATH"/timestamp.sh
 
 printf "%s\n" 'Backup service routine successful.'
