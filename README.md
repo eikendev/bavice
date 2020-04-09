@@ -7,7 +7,8 @@ When an error occurs, the script will send a notification to the specified [Goti
 
 # Usage
 
-Have a look at the `config.sample` file.
+Have a look at the `config.sh.sample` file.
 It already contains all the keys you need to configure.
+Copy the example to a file named `config.sh` and change the values for your personal use.
 Also, you will need to put the BorgBackup phrase in the file `borg.phrase` inside this directory.
 To run the script regularly, I recommend setting up a [systemd](https://freedesktop.org/wiki/Software/systemd/) timer.
