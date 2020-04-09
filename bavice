@@ -8,7 +8,7 @@ BACKUP_DIRECTORIES='
 	/etc
 '
 
-SCRIPT_NAME='bavice'
+SCRIPT_NAME='Bavice'
 SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")"
 FILE_LOCK='/tmp/'$SCRIPT_NAME'.lock'
 FILE_PHRASE="$SCRIPT_PATH/borg.phrase"
@@ -20,7 +20,7 @@ function pre_backup() { :; }
 source "$SCRIPT_PATH/local.sh"
 
 export BORG_REPO="ssh://$BORG_USER@$BORG_HOST:$BORG_PORT/$BORG_PATH"
-export BORG_PASSPHRASE=$(head -n 1 $FILE_PHRASE)
+export BORG_PASSPHRASE="$(head -n 1 $FILE_PHRASE)"
 
 if [ -z "$GOTIFY_BASEURL" ]; then
 	printf "%s\n" 'No base URL for Gotify was supplied!'
@@ -103,6 +103,6 @@ prune_repository
 printf "%s\n" 'Cleaning up.'
 cleanup
 
-$SCRIPT_PATH/timestamp.sh
+"$SCRIPT_PATH/timestamp.sh"
 
-printf "%s\n" 'Backup Service Routine successful.'
+printf "%s\n" 'Backup service routine successful.'
