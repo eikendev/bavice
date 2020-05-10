@@ -2,8 +2,6 @@
 
 set -eE
 
-exec 1> >(logger -t "$SCRIPT_NAME") 2>&1
-
 BACKUP_DIRECTORIES='
 	/etc
 '
@@ -12,6 +10,8 @@ SCRIPT_NAME='Bavice'
 SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")"
 FILE_LOCK='/tmp/'$SCRIPT_NAME'.lock'
 FILE_PHRASE="$SCRIPT_PATH/borg.phrase"
+
+exec 1> >(logger -t "$SCRIPT_NAME") 2>&1
 
 # Dummy functions. Can be redefined by the configuration.
 function pre_unlock() { :; }
@@ -22,12 +22,12 @@ source "$SCRIPT_PATH/config.sh"
 export BORG_REPO="ssh://$BORG_USER@$BORG_HOST:$BORG_PORT/$BORG_PATH"
 export BORG_PASSPHRASE="$(head -n 1 $FILE_PHRASE)"
 
-if [ -z "$GOTIFY_BASEURL" ]; then
-	printf "%s\n" 'No base URL for Gotify was supplied!'
+if [ -z "$GOTIFY_HOSTNAME" ]; then
+	printf "%s\n" 'No hostname for Gotify instance was supplied!'
 	exit 1
 fi
 
-if [ -z "$GOTIFY_APPTOKEN" ]; then
+if [ -z "$GOTIFY_TOKEN" ]; then
 	printf "%s\n" 'No application token for Gotify was supplied!'
 	exit 1
 fi
@@ -39,13 +39,18 @@ function unlock() {
 }
 
 function cleanup() {
+	printf "%s\n" 'Cleaning up.'
+
 	unlock
 }
 
 function error_exit() {
+	printf "%s\n" 'An error occurred.'
+
 	cleanup
 
-	curl "$GOTIFY_BASEURL/message?token=$GOTIFY_APPTOKEN" \
+	printf "%s\n" 'Sending a notification via Gotify.'
+	curl -q -s -S -L "https://$GOTIFY_HOSTNAME/message?token=$GOTIFY_TOKEN" \
 		-F 'title=Error during backup service routine' \
 		-F 'message=An error occured during backing up a device with Bavice.' \
 		-F 'priority=5'
@@ -100,7 +105,6 @@ create_backup
 printf "%s\n" 'Pruning repository.'
 prune_repository
 
-printf "%s\n" 'Cleaning up.'
 cleanup
 
 "$SCRIPT_PATH"/timestamp.sh
