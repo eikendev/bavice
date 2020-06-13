@@ -1,11 +1,11 @@
-# About
+## About
 
 This is the script I use for backing up my servers.
 The script depends on [BorgBackup](https://www.borgbackup.org/), and offers hooks for running programs before and after the backup.
 Be aware that it will conditionally prune existing backups.
 When an error occurs, the script will send a notification to the specified [Gotify](https://gotify.net/) application.
 
-# Usage
+## Usage
 
 Have a look at the `config.sh.sample` file.
 It already contains all the keys you need to configure.
