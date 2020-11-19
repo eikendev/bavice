@@ -1,0 +1,41 @@
+# https://projects.torsion.org/witten/borgmatic/raw/branch/master/sample/systemd/borgmatic.service
+
+[Unit]
+Description=Backup Service Routine
+Wants=network-online.target
+After=network-online.target
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemd-inhibit --who="bavice" --why="Prevent interrupting scheduled backup" /etc/bavice/bavice
+User=root
+Group=root
+
+# Strict execution environment
+#LockPersonality=true
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+#ProtectClock=yes
+ProtectControlGroups=yes
+#ProtectHostname=yes
+#ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+#RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+#SystemCallFilter=@system-service
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=-/root/.config/borg -/root/.cache/borg
+
+# Lower CPU and I/O priority
+Nice=19
+CPUSchedulingPolicy=batch
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+IOWeight=100

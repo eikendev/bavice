@@ -11,4 +11,6 @@ Have a look at the `config.sh.sample` file.
 It already contains all the keys you need to configure.
 Copy the example to a file named `config.sh` and change the values for your personal use.
 Also, you will need to put the BorgBackup phrase in the file `borg.phrase` inside this directory.
-To run the script regularly, I recommend setting up a [systemd](https://freedesktop.org/wiki/Software/systemd/) timer.
+
+To run the script, I recommend using [systemd](https://freedesktop.org/wiki/Software/systemd/).
+See `bavice.service` and `bavice.timer` for templates to setup a service and a timer respectively.
