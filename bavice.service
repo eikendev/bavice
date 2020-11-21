@@ -7,7 +7,7 @@ After=network-online.target
 ConditionACPower=true
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=/bin/systemd-inhibit --who="bavice" --why="Prevent interrupting scheduled backup" /etc/bavice/bavice
 User=root
 Group=root
@@ -16,7 +16,7 @@ Group=root
 #LockPersonality=true
 NoNewPrivileges=yes
 PrivateDevices=yes
-PrivateTmp=yes
+#PrivateTmp=yes # Bavice writes a timestamp into /tmp.
 #ProtectClock=yes
 ProtectControlGroups=yes
 #ProtectHostname=yes
