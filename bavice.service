@@ -8,30 +8,13 @@ ConditionACPower=true
 
 [Service]
 Type=simple
-ExecStart=/bin/systemd-inhibit --who="bavice" --why="Prevent interrupting scheduled backup" /etc/bavice/bavice
-User=root
-Group=root
+ExecStart=/usr/local/bin/bavice
+User=bavice
+Group=bavice
 
-# Strict execution environment
-#LockPersonality=true
-NoNewPrivileges=yes
-PrivateDevices=yes
-#PrivateTmp=yes # Bavice writes a timestamp into /tmp.
-#ProtectClock=yes
-ProtectControlGroups=yes
-#ProtectHostname=yes
-#ProtectKernelLogs=yes
-ProtectKernelModules=yes
-ProtectKernelTunables=yes
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
-RestrictNamespaces=yes
-RestrictRealtime=yes
-#RestrictSUIDSGID=yes
-SystemCallArchitectures=native
-#SystemCallFilter=@system-service
+# Stricter execution environment. Other defensive options here seem to fail.
 ProtectSystem=full
-ProtectHome=read-only
-ReadWritePaths=-/root/.config/borg -/root/.cache/borg
+ReadWritePaths=-/usr/local/share/telegraf
 
 # Lower CPU and I/O priority
 Nice=19
