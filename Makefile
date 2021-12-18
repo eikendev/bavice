@@ -1,5 +1,5 @@
-TARGET := bavice
+TARGET := ./bin
 
 .PHONY: check
 check:
-	shellcheck ${TARGET}
+	shellcheck ${TARGET}/*

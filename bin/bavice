@@ -48,7 +48,7 @@ function create_backup() {
 }
 
 function prune_repository() {
-	restic forget --prune                   \
+	restic forget --prune               \
 		--keep-daily    7               \
 		--keep-weekly   4               \
 		--keep-monthly  6               \
