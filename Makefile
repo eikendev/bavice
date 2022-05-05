@@ -1,5 +1,5 @@
 TARGET := ./bin
 
-.PHONY: check
-check:
+.PHONY: lint
+lint:
 	shellcheck ${TARGET}/*

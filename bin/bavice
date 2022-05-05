@@ -67,7 +67,9 @@ function prune_repository() {
 }
 
 function push_timestamp() {
-	printf "%s\n" "$(date +%s%N)" > '/usr/local/share/telegraf/bavice.timestamp'
+	local hostname
+	hostname="$(hostname -s)"
+	printf "%s\n" "bavice,host=$hostname last_backup=$(date +%s%N)" > '/usr/local/share/telegraf/bavice_last_backup'
 }
 
 printf "%s\n" 'Running pre-backup hook.'
