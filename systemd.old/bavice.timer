@@ -1,0 +1,8 @@
+[Unit]
+Description=Backup Service Routine
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+
+[Install]
+WantedBy=timers.target
